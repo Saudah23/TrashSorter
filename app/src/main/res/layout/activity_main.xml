@@ -79,22 +79,24 @@
     <Button
         android:id="@+id/btnMasuk"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="Masuk"
         android:textStyle="bold"
-        android:textColor="#4CAF50"
-        android:backgroundTint="@android:color/white"
-        android:background="@drawable/btn_outline"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@+id/appName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:radius="10dp"
+        android:textSize="16sp" />
 
     <!-- Tombol Registrasi -->
     <Button
         android:id="@+id/btnRegistrasi"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="Registrasi"
         android:textStyle="bold"
         android:backgroundTint="#4CAF50"
@@ -102,7 +104,10 @@
         app:layout_constraintTop_toBottomOf="@+id/btnMasuk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:radius="10dp"
+        android:textSize="16sp" />
 
     <!-- Bentuk bulat bawah -->
     <View
@@ -111,7 +116,9 @@
         android:layout_height="160dp"
         android:background="@drawable/bottom_shape"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistrasi"
+        android:layout_marginTop="24dp" />
 
     <LinearLayout
         android:id="@+id/main"
