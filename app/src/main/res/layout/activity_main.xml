@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <!-- Bentuk bulat atas -->
+    <View
+        android:id="@+id/topShape"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:background="@drawable/top_shape"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Judul -->
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selamat Datang"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/topShape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:id="@+id/descText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Silahkan masuk untuk\nmelanjutkan."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textColor="#555"
+        app:layout_constraintTop_toBottomOf="@id/welcomeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Gambar -->
+    <ImageView
+        android:id="@+id/imageTrash"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/open"
+        android:contentDescription="Trash image"
+        app:layout_constraintTop_toBottomOf="@+id/descText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Judul Aplikasi -->
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TrashSorter"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#4CAF50"
+        android:shadowColor="#A5D6A7"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1.5"
+        app:layout_constraintTop_toBottomOf="@+id/imageTrash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Tombol Masuk -->
+    <Button
+        android:id="@+id/btnMasuk"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Masuk"
+        android:textStyle="bold"
+        android:textColor="#4CAF50"
+        android:backgroundTint="@android:color/white"
+        android:background="@drawable/btn_outline"
+        app:layout_constraintTop_toBottomOf="@+id/appName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Tombol Registrasi -->
+    <Button
+        android:id="@+id/btnRegistrasi"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Registrasi"
+        android:textStyle="bold"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/btnMasuk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Bentuk bulat bawah -->
+    <View
+        android:id="@+id/bottomShape"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:background="@drawable/bottom_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="38dp">
+
+        <!-- Konten lain di sini -->
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
