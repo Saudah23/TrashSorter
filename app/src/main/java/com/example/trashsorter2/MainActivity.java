@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     //tambahan aisyah
     Button btnMasuk;
     //
+    //tambahan nurul
+    Button btnRegistrasi;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         //tambahan aisyah
         btnMasuk = findViewById(R.id.btnMasuk);
+        //tambahan nurul
+        btnRegistrasi = findViewById(R.id.btnRegistrasi);
 
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //
+        btnRegistrasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
