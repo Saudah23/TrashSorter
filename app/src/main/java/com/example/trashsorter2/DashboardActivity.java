@@ -37,12 +37,11 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Klik notifikasi
         icNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DashboardActivity.this, "Notifikasi diklik", Toast.LENGTH_SHORT).show();
-                // Tambahkan intent jika ingin ke halaman Notifikasi
+                Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+                startActivity(intent);
             }
         });
 
