@@ -29,46 +29,37 @@ public class DashboardActivity extends AppCompatActivity {
         icNotifications = findViewById(R.id.icNotifications);
         NavigationView navigationView = findViewById(R.id.navigationView);
 
-        // Buka navigation drawer saat ikon menu diklik
-        icMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.END); // Posisi kanan
-            }
-        });
+        icMenu.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.END));
 
-        icNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+        icNotifications.setOnClickListener(view -> openNotificationPage());
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_notifications) {
+                openNotificationPage();
+
+            } else if (id == R.id.nav_control) {
+                startActivity(new Intent(DashboardActivity.this, ControlActivity.class));
+
+            } else if (id == R.id.nav_language) {
+                Toast.makeText(DashboardActivity.this, "Bahasa diklik", Toast.LENGTH_SHORT).show();
+
+            } else if (id == R.id.nav_logout) {
+                Toast.makeText(DashboardActivity.this, "Logout berhasil", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                finish();
             }
+
+            drawerLayout.closeDrawer(GravityCompat.END);
+            return true;
         });
+    }
 
-        // Klik item navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-
-                if (id == R.id.nav_notifications) {
-                    Toast.makeText(DashboardActivity.this, "Notifikasi diklik", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_control) {
-                    Toast.makeText(DashboardActivity.this, "Kontrol diklik", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_language) {
-                    Toast.makeText(DashboardActivity.this, "Bahasa diklik", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_logout) {
-                    Toast.makeText(DashboardActivity.this, "Logout berhasil", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-
-                drawerLayout.closeDrawer(GravityCompat.END);
-                return true;
-            }
-        });
+    private void openNotificationPage() {
+        Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+        startActivity(intent);
     }
 }
