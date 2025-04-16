@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/main">
+
+    <!-- Gambar atas -->
+    <ImageView
+        android:id="@+id/ivTopBackground"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/green_background_atas"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Konten -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/ivTopBackground"
+        app:layout_constraintBottom_toTopOf="@id/ivBottomBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:paddingBottom="200dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvRegisterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/etNama"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Nama"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etAlamat"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Alamat Lengkap"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_background"
+                android:inputType="textEmailAddress"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Password"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Konfirmasi Password"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:text="Sign Up"
+                android:backgroundTint="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvLoginHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sudah punya akun? Masuk"
+                android:textColor="#4CAF50"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Gambar bawah -->
+    <ImageView
+        android:id="@+id/ivBottomBackground"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/green_background_bawah"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
