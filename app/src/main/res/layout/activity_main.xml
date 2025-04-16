@@ -80,7 +80,7 @@
         android:id="@+id/btnMasuk"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:text="Masuk"
+        android:text="Login"
         android:textStyle="bold"
         android:backgroundTint="#4CAF50"
         android:textColor="@android:color/white"
@@ -89,7 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:radius="10dp"
         android:textSize="16sp" />
 
     <!-- Tombol Registrasi -->
@@ -97,7 +96,7 @@
         android:id="@+id/btnRegistrasi"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:text="Registrasi"
+        android:text="Sign Up"
         android:textStyle="bold"
         android:backgroundTint="#4CAF50"
         android:textColor="@android:color/white"
@@ -106,7 +105,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:radius="10dp"
+        android:textSize="16sp" />
+
+    <!-- Tombol Login dengan Google -->
+    <Button
+        android:id="@+id/btnGoogleLogin"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Login dengan Google"
+        android:textStyle="bold"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistrasi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:textSize="16sp" />
 
     <!-- Bentuk bulat bawah -->
@@ -115,11 +129,12 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:background="@drawable/bottom_shape"
+        app:layout_constraintTop_toBottomOf="@+id/btnGoogleLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegistrasi"
         android:layout_marginTop="24dp" />
 
+    <!-- LinearLayout Placeholder (tidak digunakan dalam ConstraintLayout) -->
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -127,11 +142,7 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="181dp"
         tools:layout_editor_absoluteY="38dp">
-
         <!-- Konten lain di sini -->
-
     </LinearLayout>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

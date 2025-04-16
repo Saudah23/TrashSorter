@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "967775585624",
+    "project_id": "trashsorter-1f379",
+    "storage_bucket": "trashsorter-1f379.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967775585624:android:4f3465755c4dd22796d12d",
+        "android_client_info": {
+          "package_name": "com.example.trashsorter2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967775585624-cc9d1d39avq5o3hvu6pov75tc9alncf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trashsorter2",
+            "certificate_hash": "fad3c1e8b5fd565d97ec1f11ebcea36c3734884f"
+          }
+        },
+        {
+          "client_id": "967775585624-6jvoc1dbroo9d3rm4l71bpe2joet3ip1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXjS--H2uoYLIlwX8I9dHvrYCNaqZz4_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967775585624-6jvoc1dbroo9d3rm4l71bpe2joet3ip1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
