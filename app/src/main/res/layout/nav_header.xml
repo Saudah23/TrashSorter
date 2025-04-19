@@ -17,7 +17,7 @@
         android:id="@+id/btnProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit profile"
+        android:text="Profile"
         android:backgroundTint="#4CAF50"
         android:textColor="#FFFFFF"
         android:elevation="4dp"
