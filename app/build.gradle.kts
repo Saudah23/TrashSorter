@@ -59,4 +59,6 @@ dependencies {
     //enkripsi email & password
     implementation ("androidx.security:security-crypto:1.1.0-alpha06")
 
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }
