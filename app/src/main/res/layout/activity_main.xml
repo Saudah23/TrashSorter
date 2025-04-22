@@ -9,6 +9,14 @@
     android:background="@android:color/white"
     tools:context=".MainActivity">
 
+    <!-- Guideline Horizontal untuk menaikkan posisi logo dan tombol -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.68" />
+
     <!-- Bentuk bulat atas -->
     <View
         android:id="@+id/topShape"
@@ -57,23 +65,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Judul Aplikasi -->
-    <TextView
-        android:id="@+id/appName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TrashSorter"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#4CAF50"
-        android:shadowColor="#A5D6A7"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="1.5"
-        app:layout_constraintTop_toBottomOf="@+id/imageTrash"
+    <!-- Logo Aplikasi -->
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/trashsorter_logo_main"
+        android:contentDescription="Logo TrashSorter"
+        app:layout_constraintTop_toBottomOf="@id/imageTrash"
+        app:layout_constraintBottom_toTopOf="@id/guidelineTop70"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginBottom="8dp" />
 
     <!-- Tombol Masuk -->
     <Button
@@ -82,9 +85,9 @@
         android:layout_height="60dp"
         android:text="Login"
         android:textStyle="bold"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#31572C"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/appName"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop70"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
@@ -98,27 +101,13 @@
         android:layout_height="60dp"
         android:text="Sign Up"
         android:textStyle="bold"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#31572C"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@+id/btnMasuk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:textSize="16sp" />
-
-    <!-- Tombol Login dengan Google -->
-
-
-    <!-- LinearLayout Placeholder (tidak digunakan dalam ConstraintLayout) -->
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="38dp">
-        <!-- Konten lain di sini -->
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

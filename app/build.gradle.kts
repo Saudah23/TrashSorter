@@ -33,6 +33,11 @@ android {
     }
 }
 
+// ✅ Tambahkan di luar blok android
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add("-Xlint:deprecation")
+}
+
 dependencies {
     // UI dependencies
     implementation(libs.appcompat)
@@ -53,12 +58,15 @@ dependencies {
     // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.0.0")
 
-    //Firestore Database
-    implementation ("com.google.firebase:firebase-firestore:24.10.0")
+    // Firestore Database
+    implementation("com.google.firebase:firebase-firestore:24.10.0")
 
-    //enkripsi email & password
-    implementation ("androidx.security:security-crypto:1.1.0-alpha06")
+    // Enkripsi email & password
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Grafik chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    // Realtime Database
+    implementation("com.google.firebase:firebase-database:20.3.0")
 }
