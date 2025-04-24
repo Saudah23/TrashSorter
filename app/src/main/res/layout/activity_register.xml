@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Register"
-                        android:textColor="#4CD964"
+                        android:textColor="#31572C"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -142,7 +142,7 @@
                     android:layout_marginTop="24dp"
                     android:padding="12dp"
                     android:gravity="center"
-                    android:backgroundTint="#4CAF50"
+                    android:backgroundTint="#31572C"
                     android:textSize="16sp" />
 
                 <!-- Sudah punya akun? Masuk -->
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sudah punya akun? Masuk"
-                    android:textColor="#4CAF50"
+                    android:textColor="#31572C"
                     android:layout_marginTop="16dp"
                     android:textStyle="bold"
                     android:textSize="14sp" />
