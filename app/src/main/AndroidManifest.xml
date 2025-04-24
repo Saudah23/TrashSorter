@@ -13,32 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrashSorter2"
         tools:targetApi="31">
-
+        <activity
+            android:name=".CustomMarkerView"
+            android:exported="false" />
         <!-- SplashScreen sebagai launcher -->
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".SignUpActivity" android:exported="false" />
-        <activity android:name=".ControlActivity" android:exported="false" />
-        <activity android:name=".NotificationActivity" android:exported="false" />
-        <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ControlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-
-        <!-- MainActivity bukan launcher -->
+            android:windowSoftInputMode="adjustResize" /> <!-- MainActivity bukan launcher -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

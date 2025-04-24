@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox cbRemember;
     private FirebaseAuth mAuth;
     private SharedPreferences securePrefs;
+    private TextView tvRegistHere;
 
     private static final String TAG = "GoogleSignIn";
     private static final int RC_SIGN_IN = 1001;
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         cbRemember = findViewById(R.id.cbRemember);
         btnLogin = findViewById(R.id.btnLogin);
         btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
+        tvRegistHere = findViewById(R.id.tvRegistHere);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -116,8 +119,12 @@ public class LoginActivity extends AppCompatActivity {
             Intent signInIntent = googleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
-    }
 
+        tvRegistHere.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            startActivity(intent);
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
