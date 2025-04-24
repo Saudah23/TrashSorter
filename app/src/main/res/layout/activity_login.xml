@@ -7,95 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <!-- Judul -->
-    <TextView
-        android:id="@+id/tvLoginTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
-
-    <!-- Email -->
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="12dp"
-        android:background="@drawable/edittext_background"
-        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Password -->
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:background="@drawable/edittext_background"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Remember Me -->
-    <CheckBox
-        android:id="@+id/cbRemember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remember password"
-        android:textColor="#5D4037"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
-        app:layout_constraintStart_toStartOf="@id/etPassword" />
-
-    <!-- Tombol Login -->
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="Login"
-        android:textStyle="bold"
-        android:backgroundTint="#31572C"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:layout_marginTop="44dp"
-        app:layout_constraintTop_toBottomOf="@id/cbRemember"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Tombol Google -->
-    <Button
-        android:id="@+id/btnGoogleLogin"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="Login dengan Google"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:backgroundTint="#6f1d1b"
-        android:textSize="16sp"
-        android:layout_marginBottom="84dp"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ivIllustration" />
-
-    <!-- Background ilustrasi bawah -->
+    <!-- Gambar latar bawah -->
     <ImageView
         android:id="@+id/ivIllustration"
         android:layout_width="0dp"
@@ -106,4 +18,90 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- ScrollView isi login -->
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ivIllustration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- Judul -->
+            <TextView
+                android:id="@+id/tvLoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="32dp" />
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:background="@drawable/edittext_background" />
+
+            <!-- Password -->
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:background="@drawable/edittext_background" />
+
+            <!-- Remember Me -->
+            <CheckBox
+                android:id="@+id/cbRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember password"
+                android:textColor="#5D4037"
+                android:layout_marginTop="8dp" />
+
+            <!-- Tombol Login Email -->
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:text="Login"
+                android:textStyle="bold"
+                android:backgroundTint="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp" />
+
+            <!-- Tombol Google Login -->
+            <Button
+                android:id="@+id/btnGoogleLogin"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:text="Login dengan Google"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#DB4437"
+                android:layout_marginTop="12dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
