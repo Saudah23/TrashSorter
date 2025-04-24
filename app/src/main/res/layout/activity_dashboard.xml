@@ -30,16 +30,16 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/trashsorter_logo_main"
+            android:layout_width="226dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="Logo"
-            app:layout_constraintTop_toTopOf="@+id/icNotifications"
-            app:layout_constraintStart_toEndOf="@+id/icNotifications"
+            android:src="@drawable/trashsorter_logo_main"
             app:layout_constraintEnd_toStartOf="@+id/icMenu"
             app:layout_constraintHorizontal_bias="0.5"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+            app:layout_constraintStart_toEndOf="@+id/icNotifications"
+            app:layout_constraintTop_toTopOf="@+id/icNotifications" />
 
         <!-- Icon Menu -->
         <ImageView

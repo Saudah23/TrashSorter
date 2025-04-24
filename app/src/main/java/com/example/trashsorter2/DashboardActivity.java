@@ -91,9 +91,6 @@ public class DashboardActivity extends AppCompatActivity {
             } else if (id == R.id.nav_notifications) {
                 Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
                 startActivity(intent);
-            } else if (id == R.id.nav_control) {
-                Intent intent = new Intent(DashboardActivity.this, ControlActivity.class);
-                startActivity(intent);
             } else if (id == R.id.nav_logout) {
                 Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
