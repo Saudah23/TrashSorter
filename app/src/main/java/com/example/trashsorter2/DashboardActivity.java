@@ -41,23 +41,23 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Menampilkan Chart
         LineChart lineChart = findViewById(R.id.lineChart);
-        ArrayList<Entry> organik = new ArrayList<>();
-        organik.add(new Entry(0, 20));
-        organik.add(new Entry(1, 40));
-        organik.add(new Entry(2, 60));
-        organik.add(new Entry(3, 30));
+        ArrayList<Entry> metal = new ArrayList<>();
+        metal.add(new Entry(0, 20));
+        metal.add(new Entry(1, 40));
+        metal.add(new Entry(2, 60));
+        metal.add(new Entry(3, 30));
 
-        ArrayList<Entry> nonOrganik = new ArrayList<>();
-        nonOrganik.add(new Entry(0, 15));
-        nonOrganik.add(new Entry(1, 25));
-        nonOrganik.add(new Entry(2, 50));
-        nonOrganik.add(new Entry(3, 40));
+        ArrayList<Entry> nonMetal = new ArrayList<>();
+        nonMetal.add(new Entry(0, 15));
+        nonMetal.add(new Entry(1, 25));
+        nonMetal.add(new Entry(2, 50));
+        nonMetal.add(new Entry(3, 40));
 
-        LineDataSet set1 = new LineDataSet(organik, "Organik");
+        LineDataSet set1 = new LineDataSet(metal, "Metal");
         set1.setColor(Color.GREEN);
         set1.setCircleColor(Color.GREEN);
 
-        LineDataSet set2 = new LineDataSet(nonOrganik, "Non-Organik");
+        LineDataSet set2 = new LineDataSet(nonMetal, "Non-Metal");
         set2.setColor(Color.BLUE);
         set2.setCircleColor(Color.BLUE);
 
