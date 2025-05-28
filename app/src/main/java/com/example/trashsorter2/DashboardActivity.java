@@ -7,26 +7,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.*;
+import com.google.firebase.firestore.*;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 import android.content.Intent;
 import android.view.View;
-import android.app.Activity;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
     private final int maxVolume = 100;
     private final ArrayList<Entry> entriesMetal = new ArrayList<>();
     private final ArrayList<Entry> entriesNonMetal = new ArrayList<>();
+    private final ArrayList<String> xLabels = new ArrayList<>();
     private long lastSavedTime = 0;
 
     @Override
@@ -57,7 +59,9 @@ public class DashboardActivity extends AppCompatActivity {
         tvMetalPercent = findViewById(R.id.tvMetalPercent);
         tvNonMetalPercent = findViewById(R.id.tvNonMetalPercent);
 
+        setupLineChart();
         setupFirebaseData();
+        setupFirestoreLineChart();
         setupNavigation(navigationView);
 
         icMenu.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.END));
@@ -100,8 +104,27 @@ public class DashboardActivity extends AppCompatActivity {
         lineChart.setDrawGridBackground(false);
         lineChart.getDescription().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);
+
+        // X Axis settings
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelRotationAngle(-45);
+
+        // Y Axis settings
+        YAxis yAxis = lineChart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(100f);
+        yAxis.setLabelCount(6, true);
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return (int) value + " %";
+            }
+        });
+
+        // Legend
         Legend legend = lineChart.getLegend();
         legend.setForm(Legend.LegendForm.LINE);
     }
@@ -123,10 +146,9 @@ public class DashboardActivity extends AppCompatActivity {
                         sensorRef.child("NonMetal").child("volumePersenNonmetal").get().addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Float nonMetalVolume = parseVolume(task.getResult().getValue());
-
                                 long currentTime = System.currentTimeMillis();
                                 if (currentTime - lastSavedTime > 60 * 1000) {
-                                    saveToRiwayat(metalVolume, nonMetalVolume);
+                                    saveToRiwayatRealtimeDB(metalVolume, nonMetalVolume);
                                     lastSavedTime = currentTime;
                                 }
                             }
@@ -155,46 +177,55 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {}
         });
-
-        sensorRef.child("Riwayat").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                entriesMetal.clear();
-                entriesNonMetal.clear();
-                int index = 0;
-
-                for (DataSnapshot snap : snapshot.getChildren()) {
-                    Float metalVolume = parseVolume(snap.child("Metal").getValue());
-                    Float nonMetalVolume = parseVolume(snap.child("NonMetal").getValue());
-
-                    if (metalVolume != null && nonMetalVolume != null) {
-                        entriesMetal.add(new Entry(index, metalVolume));
-                        entriesNonMetal.add(new Entry(index, nonMetalVolume));
-                        index++;
-                    }
-                }
-
-                LineDataSet dataSetMetal = new LineDataSet(entriesMetal, "Metal");
-                dataSetMetal.setColor(Color.BLUE);
-                dataSetMetal.setLineWidth(2f);
-
-                LineDataSet dataSetNonMetal = new LineDataSet(entriesNonMetal, "Non-Metal");
-                dataSetNonMetal.setColor(Color.GREEN);
-                dataSetNonMetal.setLineWidth(2f);
-
-                LineData lineData = new LineData(dataSetMetal, dataSetNonMetal);
-                lineChart.setData(lineData);
-                lineChart.invalidate();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("DashboardActivity", "LineChart load error: " + error.getMessage());
-            }
-        });
     }
 
-    private void saveToRiwayat(float metalVolume, float nonMetalVolume) {
+    private void setupFirestoreLineChart() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("riwayat")
+                .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
+                .addSnapshotListener((value, error) -> {
+                    if (error != null || value == null) {
+                        Log.e("FirestoreChart", "Error loading Firestore: " + (error != null ? error.getMessage() : "null snapshot"));
+                        return;
+                    }
+
+                    entriesMetal.clear();
+                    entriesNonMetal.clear();
+                    xLabels.clear();
+
+                    int index = 0;
+                    for (QueryDocumentSnapshot doc : value) {
+                        Float metal = parseVolume(doc.get("volumePersenMetal"));
+                        Float nonMetal = parseVolume(doc.get("volumePersenNonmetal"));
+                        String timestamp = doc.getString("timestamp");
+
+                        if (metal != null && nonMetal != null && timestamp != null) {
+                            entriesMetal.add(new Entry(index, metal));
+                            entriesNonMetal.add(new Entry(index, nonMetal));
+                            xLabels.add(timestamp);
+                            index++;
+                        }
+                    }
+
+                    // Perubahan warna grafik:
+                    LineDataSet dataSetMetal = new LineDataSet(entriesMetal, "Metal");
+                    dataSetMetal.setColor(Color.GREEN); // Warna Metal = Hijau
+                    dataSetMetal.setCircleColor(Color.GREEN);
+                    dataSetMetal.setLineWidth(2f);
+
+                    LineDataSet dataSetNonMetal = new LineDataSet(entriesNonMetal, "Non-Metal");
+                    dataSetNonMetal.setColor(Color.BLUE); // Warna Non-Metal = Biru
+                    dataSetNonMetal.setCircleColor(Color.BLUE);
+                    dataSetNonMetal.setLineWidth(2f);
+
+                    LineData lineData = new LineData(dataSetMetal, dataSetNonMetal);
+                    lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xLabels));
+                    lineChart.setData(lineData);
+                    lineChart.invalidate();
+                });
+    }
+
+    private void saveToRiwayatRealtimeDB(float metalVolume, float nonMetalVolume) {
         DatabaseReference riwayatRef = FirebaseDatabase.getInstance()
                 .getReference("Sensor").child("Riwayat");
 

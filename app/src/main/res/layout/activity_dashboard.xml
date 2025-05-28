@@ -104,7 +104,7 @@
             android:id="@+id/textKapasitas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kapasitas Sampah\nOrganik/Non-organik"
+            android:text="Kapasitas Sampah\nMetal/Non-metal"
             android:textSize="16sp"
             android:textColor="#2C2C2C"
             android:textStyle="bold"
