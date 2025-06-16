@@ -1,4 +1,4 @@
-package com.example.trashsorter2.model;
+package com.kelompok4.trashsorter.model;
 
 public class NotificationItem {
     private String waktu;

@@ -1,4 +1,4 @@
-package com.example.trashsorter2;
+package com.kelompok4.trashsorter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trashsorter2.model.NotificationItem;
+import com.kelompok4.trashsorter.model.NotificationItem;
 
 import java.util.List;
 

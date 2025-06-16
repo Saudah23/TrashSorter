@@ -1,9 +1,9 @@
-package com.example.trashsorter2.marker;
+package com.kelompok4.trashsorter.marker;
 
 import android.content.Context;
 import android.widget.TextView;
 
-import com.example.trashsorter2.R;
+import com.kelompok4.trashsorter.R;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;

@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.trashsorter2"
+    namespace = "com.kelompok4.trashsorter"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.trashsorter2"
+        applicationId = "com.kelompok4.trashsorter"
         minSdk = 25
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

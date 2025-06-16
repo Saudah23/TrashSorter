@@ -1,4 +1,4 @@
-package com.example.trashsorter2;
+package com.kelompok4.trashsorter;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trashsorter2.model.NotificationItem;
+import com.kelompok4.trashsorter.model.NotificationItem;
 import com.google.firebase.database.*;
 
 import java.text.SimpleDateFormat;

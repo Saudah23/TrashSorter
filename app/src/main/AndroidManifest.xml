@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.trashsorter2">
+    xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,7 +16,7 @@
 
         <!-- SplashScreen sebagai launcher -->
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.kelompok4.trashsorter.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -26,18 +25,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".SignUpActivity" android:exported="false" />
-        <activity android:name=".ControlActivity" android:exported="false" />
-        <activity android:name=".NotificationActivity" android:exported="false" />
-        <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".LoginActivity"
+        <activity android:name="com.kelompok4.trashsorter.ProfileActivity" />
+        <activity android:name="com.kelompok4.trashsorter.SignUpActivity" android:exported="false" />
+        <activity android:name="com.kelompok4.trashsorter.ControlActivity" android:exported="false" />
+        <activity android:name="com.kelompok4.trashsorter.NotificationActivity" android:exported="false" />
+        <activity android:name="com.kelompok4.trashsorter.DashboardActivity" android:exported="false" />
+        <activity android:name="com.kelompok4.trashsorter.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
         <!-- MainActivity bukan launcher -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.kelompok4.trashsorter.MainActivity"
             android:exported="false" />
 
     </application>

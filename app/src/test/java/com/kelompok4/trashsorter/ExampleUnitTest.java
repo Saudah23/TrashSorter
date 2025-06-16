@@ -1,4 +1,4 @@
-package com.example.trashsorter2;
+package com.kelompok4.trashsorter;
 
 import org.junit.Test;
 
