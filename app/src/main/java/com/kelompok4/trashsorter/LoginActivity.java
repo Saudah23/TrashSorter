@@ -1,158 +1,125 @@
 package com.kelompok4.trashsorter;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
 
-import com.google.android.gms.auth.api.signin.*;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
-    private Button btnLogin, btnGoogleLogin;
-    private CheckBox cbRemember;
+    private EditText emailEditText, passwordEditText;
+    private CheckBox rememberMeCheckBox;
+    private Button loginButton, googleLoginButton;
     private FirebaseAuth mAuth;
-    private SharedPreferences securePrefs;
-    private TextView tvRegistHere;
-
-    private static final String TAG = "GoogleSignIn";
-    private static final int RC_SIGN_IN = 1001;
-
-    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        cbRemember = findViewById(R.id.cbRemember);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
-        tvRegistHere = findViewById(R.id.tvRegistHere);
+        emailEditText = findViewById(R.id.etEmail);
+        passwordEditText = findViewById(R.id.etPassword);
+        rememberMeCheckBox = findViewById(R.id.cbRemember);
+        loginButton = findViewById(R.id.btnLogin);
+        googleLoginButton = findViewById(R.id.btnGoogleLogin);
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Google Sign-In config
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        loginButton.setOnClickListener(view -> loginUser());
+        googleLoginButton.setOnClickListener(view -> signInWithGoogle());
+    }
 
-        // EncryptedSharedPreferences
-        try {
-            String masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-            securePrefs = EncryptedSharedPreferences.create(
-                    "secure_login_prefs",
-                    masterKey,
-                    this,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            );
-        } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
+    private void loginUser() {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Email dan password harus diisi", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        // Cek remember me
-        if (securePrefs.getBoolean("remember", false)) {
-            etEmail.setText(securePrefs.getString("email", ""));
-            etPassword.setText(securePrefs.getString("password", ""));
-            cbRemember.setChecked(true);
-        }
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    String uid = user.getUid();
+                    user.getIdToken(true).addOnCompleteListener(tokenTask -> {
+                        if (tokenTask.isSuccessful()) {
+                            String idToken = tokenTask.getResult().getToken();
+                            sendTokenToESP32(uid, idToken);
 
-        // Login Email
-        btnLogin.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email)) {
-                etEmail.setError("Email tidak boleh kosong");
-                return;
-            }
-            if (TextUtils.isEmpty(password)) {
-                etPassword.setError("Password tidak boleh kosong");
-                return;
-            }
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            if (cbRemember.isChecked()) {
-                                SharedPreferences.Editor editor = securePrefs.edit();
-                                editor.putString("email", email);
-                                editor.putString("password", password);
-                                editor.putBoolean("remember", true);
-                                editor.apply();
-                            } else {
-                                securePrefs.edit().clear().apply();
-                            }
-
-                            startActivity(new Intent(this, DashboardActivity.class));
-                            finish();
-                        } else {
-                            Toast.makeText(this, "Login gagal: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            // (Opsional) Simpan token ke Firestore untuk debugging
+                            FirebaseFirestore.getInstance().collection("users")
+                                    .document(uid)
+                                    .update("idToken", idToken);
                         }
-                    });
-        });
-
-        // Login Google
-        btnGoogleLogin.setOnClickListener(v -> {
-            Intent signInIntent = googleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        });
-
-        tvRegistHere.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-            startActivity(intent);
-        });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                Log.e(TAG, "Google Sign-In failed", e);
-                Toast.makeText(this, "Google Sign-In gagal", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(this, "Selamat datang, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, DashboardActivity.class));
                         finish();
-                    } else {
-                        Toast.makeText(this, "Login Firebase gagal", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                }
+            } else {
+                Toast.makeText(this, "Login gagal: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void signInWithGoogle() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            user.getIdToken(true).addOnCompleteListener(tokenTask -> {
+                if (tokenTask.isSuccessful()) {
+                    String idToken = tokenTask.getResult().getToken();
+                    sendTokenToESP32(uid, idToken);
+
+                    // (Opsional) Simpan token ke Firestore untuk debugging
+                    FirebaseFirestore.getInstance().collection("users")
+                            .document(uid)
+                            .update("idToken", idToken);
+                }
+                startActivity(new Intent(this, DashboardActivity.class));
+                finish();
+            });
+        }
+    }
+
+    private void sendTokenToESP32(String uid, String token) {
+        AsyncTask.execute(() -> {
+            try {
+                URL url = new URL("http://192.168.1.100/token"); // Ganti IP sesuai ESP32 kamu
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonBody = "{\"uid\":\"" + uid + "\", \"idToken\":\"" + token + "\"}";
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(jsonBody.getBytes());
+                    os.flush();
+                }
+
+                int responseCode = conn.getResponseCode();
+                Log.d("TokenSend", "Response code from ESP32: " + responseCode);
+            } catch (Exception e) {
+                Log.e("TokenSend", "Error sending token to ESP32", e);
+            }
+        });
     }
 }
