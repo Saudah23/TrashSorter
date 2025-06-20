@@ -90,7 +90,7 @@
             android:id="@+id/tvChartTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Riwayat Tingkat Kepenuhan pada Bak Sampah"
+            android:text="Riwayat Kapasitas Bak Sampah"
             android:textColor="#2C2C2C"
             android:textSize="16sp"
             android:textStyle="bold"
